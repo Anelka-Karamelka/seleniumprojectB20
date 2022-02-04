@@ -2,6 +2,7 @@ package com.cydeo.tests.day2_locators_getText_getAttribute;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -10,51 +11,30 @@ public class T2_LinkText_Practice {
 
     public static void main(String[] args) {
 
-        //TC #3: Back and forth navigation
-        //1- Open a chrome browser
+        //TC#3: Google search
+        //1- Open a Chrome browser
         WebDriverManager.chromedriver().setup();
-        WebDriver driver=new ChromeDriver();
-
+        WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
 
-        //2- Go to: https://practice.cydeo.com/
+        //2- Go to: https://google.com
+        driver.get("https://www.google.com");
 
-        driver.get("https://practice.cydeo.com");
+        //3- Write “apple” in search box
+        //4- PRESS ENTER using Keys.ENTER
+        WebElement googleSearchBox = driver.findElement(By.name("q"));
+        googleSearchBox.sendKeys("apple" + Keys.ENTER);
 
-        //3- Click to A/B Testing from top of the list.
-        //Thread.sleep(2000);
-        // driver.findElement(By.linkText("A/B Testing")).click();   // driver goes to html gets
-        WebElement abTestLink=driver.findElement(By.linkText("A/B Testing"));
-        abTestLink.click();
+        //5- Verify title:
+        //Expected: Title should start with “apple” word
+        String expectedInTitle = "apple";
+        String actualTitle = driver.getTitle();
 
-
-        // 4- Verify title is:
-       //  Expected: No A/B Test
-        String expectedTitle="No A/B Test";
-        String actualTitle= driver.getTitle();
-
-        if(actualTitle.equals(expectedTitle)){
-            System.out.println("Title verification Passed");
+        if (actualTitle.startsWith(expectedInTitle)){
+            System.out.println("Title verification PASSED!");
         }else{
-            System.out.println("Title verification FAILED");
+            System.out.println("Title verification FAILED!!!");
         }
-
-     //5- Go back to home page by using the .back();
-        driver.navigate().back();
-
-     //6- Verify title equals:
-     //  Expected: Practice
-
-        expectedTitle= "Practice";
-        actualTitle= driver.getTitle();
-
-        if(actualTitle.equals(expectedTitle)){
-            System.out.println("Title verification Passed");
-        }else{
-            System.out.println("Title verification FAILED");
-        }
-
-
 
     }
 }
