@@ -58,6 +58,8 @@ WebDriver driver;
         Assert.assertEquals(actualSelectedDay, expectedSelectedDay);
     }
 
+
+
     @AfterMethod
     public void tearDownMethod() {
         driver.close();
